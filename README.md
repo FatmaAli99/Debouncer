@@ -21,14 +21,13 @@ There are various techniques to implement a debouncer circuit, but the basic pri
 - Positive edge clock triggering
 
 # Block Diagram
-![Debouncer block diagram](https://github.com/FatmaAli99/UP_DOWN_COUNTER/blob/main/Block%20diagram.PNG)
-| signal  | direction | | width | Description | 
-| ------------- | ------------- | | ------------- | ------------- |
-| Content Cell  | Content Cell  | | Content Cell  | Content Cell  | 
-| Content Cell  | Content Cell  | | Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  | | Content Cell  | Content Cell  | 
-| Content Cell  | Content Cell  | | Content Cell  | Content Cell  |
-
+![Debouncer block diagram](https://github.com/FatmaAli99/Photos/blob/main/debouncer_block_diagarm.PNG)
+| signal | width | direction | description |
+| :---: | :---: | :---: | :---: |
+| clk | 1 | input | Positive edge system clock |
+| rst_n | 1 | input | Asynchronous negative edge system reset |
+| noisy_in | 1 | input | Input signal suffering from button bouncing |
+| debouncer_out | 1 | output | Debounced output signal |
 
 # List of files
 - README.md: this file
