@@ -16,10 +16,12 @@ A debouncer circuit's goal is to reduce or completely remove the effects of butt
 There are various techniques to implement a debouncer circuit, but the basic principle involves introducing a delay or holding period after the button state changes which known as delayed detection technique. During this delay period, any bouncing effects are ignored, and the circuit waits for the button signal to stabilize. Once the delay period elapses without any further bouncing, the debouncer circuit registers the button's final state.
 
 # Description
-- Debouncer circuit using delayed detection technique
-- System has  Positive edge clock and asynchronous negative edge reset
+- debouncer circuit using delayed detection technique
+- system has Positive edge clock and asynchronous negative edge reset
 - two stages synchronizer is added at the input
-- timer circuit is used for the delay generation using counter 
+- timer circuit is used for the delay calculation using counter
+- the idle output signal from the button is 0
+- when the button is pressed so the output signal becomes 1 
 
 ![Debouncer block diagram](https://github.com/FatmaAli99/Photos/blob/main/debouncer_block_diagarm.PNG)
 
@@ -90,11 +92,41 @@ It has two types, mealy FSM where the output depends on both input and current s
 
 ![FSM state diagram](https://github.com/FatmaAli99/Photos/blob/main/FSM_state_diagram.PNG)
 
-### idle 
+### idle 
+- This is the idle state where all outputs are zeros, and if the noisy input signal is still zero, we will still be in the idle state; otherwise, we will move to the check_high state.
+
+### check_high
+- This is the state where we check if the high input signal will stay high for the targeted delay or not, so the debouncer_out is low as we still check if it is a high signal or just a glitch, but timer_en becomes high to enable the timer circuit to start calculating the delay.
+
+- If the noisy input signal becomes low, it was just a glitch, so we move again to the idle state.
+
+- If the noisy input signal is still high but the timer_done input from the timer circuit is low, the targeted delay has not passed yet, so stay in the check_high state as the check has not completed yet.
+
+- If the noisy input signal is still high but the timer_done input from the timer circuit is high, the signal will stay high during the targeted delay, so we will move to the high state after ensuring that the input high signal is a real signal and not a glitch.
+
+### high_state
+- This is the state where we output high debouncer_out but timer_en becomes low as we don't need to calculate any delays here.
+
+- If the noisy input signal becomes low, we move to the check_low state.
+
+- If the noisy input signal is still high, we stay in the check_high state.
+
+### check_low
+- This is the state where we check if the low input signal will stay low for the targeted delay or not, so the debouncer_out is high as we still check if it is a low signal or just a glitch, but timer_en becomes high to enable the timer circuit to start calculating the delay.
+
+- If the noisy input signal becomes high, it was just a glitch, so we move again to the high state.
+
+- If the noisy input signal is still low but the timer_done input from the timer circuit is low, the targeted delay has not passed yet, so stay in the check_low state as the check has not completed yet.
+
+- If the noisy input signal is still low but the timer_done input from the timer circuit is high, the signal will stay low during the targeted delay, so we will move to the idle state after ensuring that the input low signal is a real signal and not a glitch.
+
 
 # List of files
 - README.md: this file
-
- 
-
-
+- debouncer_sync.v: the system top module verilog code including the bouncer top module and the synchronizer
+- sync.v: the synchronizer verilog code
+- debouncer.v: the debouncer top module verilog code that includes FSM and timer circuit
+- FSM.v: the debouncer finite state machine verilog code
+- timer.v: the timer circuit verilog code
+- debouncer_sync_tb.v: verilog testbench for the system top module
+  
