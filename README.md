@@ -129,4 +129,5 @@ It has two types, mealy FSM where the output depends on both input and current s
 - FSM.v: the debouncer finite state machine verilog code
 - timer.v: the timer circuit verilog code
 - debouncer_sync_tb.v: verilog testbench for the system top module
+- debouncer_sync_schematic.PNG: the system top module schematic using vivado
   
