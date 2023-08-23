@@ -1,7 +1,7 @@
 # Table of content
 - Introduction
 - Description
-- Block Diagram
+- Debouncer architecture
 - List of files
 
 # Introduction
@@ -17,11 +17,17 @@ There are various techniques to implement a debouncer circuit, but the basic pri
 
 # Description
 - Debouncer circuit using delayed detection technique
-- Asynchronous negative edge reset
-- Positive edge clock triggering
+- System has  Positive edge clock and asynchronous negative edge reset
+- two stages synchronizer is added at the input
+- timer circuit is used for the delay generation using counter 
 
-# Block Diagram
 ![Debouncer block diagram](https://github.com/FatmaAli99/Photos/blob/main/debouncer_block_diagarm.PNG)
+
+| parameter  | description |
+| ------------- | ------------- |
+| num_stages  | the number of flip/flops used in the synchronizer  |
+| counter_final_value  | the required final value for the counter in the timer circuit that corresponding to the needed delay  |
+
 | signal | width | direction | description |
 | :---: | :---: | :---: | :---: |
 | clk | 1 | input | Positive edge system clock |
@@ -29,12 +35,66 @@ There are various techniques to implement a debouncer circuit, but the basic pri
 | noisy_in | 1 | input | Input signal suffering from button bouncing |
 | debouncer_out | 1 | output | Debounced output signal |
 
+# Debouncer architecture
+![Debouncer architecture](https://github.com/FatmaAli99/Photos/blob/main/debouncer_arch.PNG)
+
+## Synchronizer
+![sync block](https://github.com/FatmaAli99/Photos/blob/main/sync_block.PNG)
+
+| parameter  | description |
+| ------------- | ------------- |
+| num_stages  | the number of flip/flops used |
+
+| signal | width | direction | description |
+| :---: | :---: | :---: | :---: |
+| clk | 1 | input | Positive edge system clock |
+| rst_n | 1 | input | Asynchronous negative edge system reset |
+| in_sig | 1 | input | the input signal suffering from button bouncing without synchronization |
+| out_sig | 1 | output |  the input signal suffering from button bouncing after synchronization |
+
+In the context of debouncing buttons, a synchronizer is often used as an additional component to improve the reliability of the debouncing circuit. Its primary purpose is to avoid metastability issues that can occur when two asynchronous signals, such as the button signal and the clock signal, interact.
+
+Metastability is a phenomenon that can occur in digital circuits when a signal changes near the edge of a clock cycle. It can result in an uncertain or unpredictable output, which may lead to incorrect behavior of the circuit. When a button signal is used directly without synchronization, metastability can occur if the button signal changes near the clock edge. here we use two stages synchronizer.
+
+## timer
+![timer block](https://github.com/FatmaAli99/Photos/blob/main/timer_block.PNG)
+
+| parameter  | description |
+| ------------- | ------------- |
+| counter_final_value  | the required final value for the counter corresponding to the needed delay |
+
+| signal | width | direction | description |
+| :---: | :---: | :---: | :---: |
+| clk | 1 | input | Positive edge system clock |
+| rst_n | 1 | input | Asynchronous negative edge system reset |
+| timer_en | 1 | input | enable signal to start counting |
+| timer_done | 1 | output | output flag tells the FSM whether it finish counting the targeted delay or not |
+
+A timer circuit is employed to measure the desired delay by utilizing a counter to convey the necessary delay information to the Finite State Machine (FSM). In the current operational setup with a clock frequency of 100 MHz and a corresponding clock period of 10 ns, the target delay is assumed to be 1000 ns. Therefore, the counter is configured to count 100 clock cycles, ranging from 0 to 99, in order to achieve the specified delay duration.
+
+## Finite state machine (FSM)
+![FSM block](https://github.com/FatmaAli99/Photos/blob/main/FSM_block.PNG)
+
+| signal | width | direction | description |
+| :---: | :---: | :---: | :---: |
+| clk | 1 | input | Positive edge system clock |
+| rst_n | 1 | input | Asynchronous negative edge system reset |
+| noisy_in | 1 | input | Input signal suffering from button bouncing after synchronization |
+| timer_done | 1 | input | input flag tells the FSM whether the timer finish counting the targeted delay or not |
+| debouncer_out | 1 | output | Debounced output signal |
+| timer_en | 1 | input | output enable signal to the timer to start counting |
+
+A Finite State Machine (FSM) is a mathematical model used to represent and control system behavior. It consists of a finite number of states, transitions between these states, and actions associated with the transitions. The role of an FSM is to define the behavior and logic of a system by responding to inputs and changing states accordingly. 
+
+It has two types, mealy FSM where the output depends on both input and current state or moore where the outputs depends only on the current state. We use moore FSM in our system. here is our system FSM state diagram:
+
+![FSM state diagram](https://github.com/FatmaAli99/Photos/blob/main/FSM_state_diagram.PNG)
+
+### idle 
+
 # List of files
 - README.md: this file
-- Up_Dn_Counter.v: RTL code (verilog)   
-- Up_Dn_Counter_tb.v: testbench code (verilog)
-- schematic.PNG: design schematic generated on Vivado
-- Block diagram.PNG: Screenshot of the block diagram
+
  
 
 
