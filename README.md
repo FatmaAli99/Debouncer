@@ -81,7 +81,7 @@ A timer circuit is employed to measure the desired delay by utilizing a counter 
 | :---: | :---: | :---: | :---: |
 | clk | 1 | input | Positive edge system clock |
 | rst_n | 1 | input | Asynchronous negative edge system reset |
-| noisy_in | 1 | input | Input signal suffering from button bouncing after synchronization |
+| sync_sig | 1 | input | Input signal suffering from button bouncing after synchronization |
 | timer_done | 1 | input | input flag tells the FSM whether the timer finish counting the targeted delay or not |
 | debouncer_out | 1 | output | Debounced output signal |
 | timer_en | 1 | input | output enable signal to the timer to start counting |
