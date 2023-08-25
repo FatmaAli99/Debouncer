@@ -123,11 +123,8 @@ It has two types, mealy FSM where the output depends on both input and current s
 
 # List of files
 - README.md: this file
-- debouncer_sync.v: the system top module verilog code including the bouncer top module and the synchronizer
-- sync.v: the synchronizer verilog code
-- debouncer.v: the debouncer top module verilog code that includes FSM and timer circuit
-- FSM.v: the debouncer finite state machine verilog code
-- timer.v: the timer circuit verilog code
-- debouncer_sync_tb.v: verilog testbench for the system top module
-- debouncer_sync_schematic.PNG: the system top module schematic using vivado
+- RTL: contains TRL codes, testbench and simulation result
+- syn: contains synthesis TCL script, output files from synthesis process
+- formality: contatins formality TCL script, output files from formality process
+- neltist schematic photos: contains neltist schematic from Design Complier and Vivado
   
