@@ -8,7 +8,7 @@ In digital systems, buttons and mechanical switches are frequently utilized as i
 
 The quick change in the electrical connections of a button as they come into touch with one another or break apart is known as "button bouncing." This bouncing, even when the button is hit or released only once, can result in several quick transitions of the signal from high to low or low to high within a little amount of time as shown in the below figure. This phenomenon of bouncing can cause digital circuitry to provide inaccurate or untrustworthy signals.
 
-![Button bouncing issue](https://github.com/FatmaAli99/Photos/blob/main/bouncing_problem.jpg)
+![Button bouncing issue](https://github.com/FatmaAli99/Debouncer/blob/main/Block_diagrams/bouncing_problem.jpg)
 
 A debouncer circuit's goal is to reduce or completely remove the effects of button bouncing. It guarantees that for every button press or release event, only one clean and stable logic level is generated. By filtering out the bouncing noise, the debouncer circuit produces a consistent and reliable digital signal.
 
@@ -22,7 +22,7 @@ There are various techniques to implement a debouncer circuit, but the basic pri
 - the idle output signal from the button is 0
 - when the button is pressed so the output signal becomes 1 
 
-![Debouncer block diagram](https://github.com/FatmaAli99/Photos/blob/main/debouncer_block_diagarm.PNG)
+![Debouncer block diagram](https://github.com/FatmaAli99/Debouncer/blob/main/Block_diagrams/debouncer_block_diagarm.PNG)
 
 | parameter  | description |
 | ------------- | ------------- |
@@ -44,4 +44,5 @@ There are various techniques to implement a debouncer circuit, but the basic pri
 - formality: contatins formality TCL script, output files from formality process
 - schematic: contains neltist schematic from Design Complier and Vivado
 - Compare_Design: Contains another implemntation that we compare with in the documentation file
+- Block_diagram: Contains figures that describe the system
   
