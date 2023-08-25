@@ -1,0 +1,49 @@
+ 
+****************************************
+Report : area
+Design : debouncer_sync
+Version: K-2015.06
+Date   : Fri Aug 25 22:46:33 2023
+****************************************
+
+Information: Updating design information... (UID-85)
+Library(s) Used:
+
+    scmetro_tsmc_cl013g_rvt_ss_1p08v_125c (File: /home/IC/std_cells/scmetro_tsmc_cl013g_rvt_ss_1p08v_125c.db)
+
+Number of ports:                           36
+Number of nets:                            76
+Number of cells:                           41
+Number of combinational cells:             24
+Number of sequential cells:                12
+Number of macros/black boxes:               0
+Number of buf/inv:                          3
+Number of references:                       3
+
+Combinational area:                221.219603
+Buf/Inv area:                       23.534001
+Noncombinational area:             360.070208
+Macro/Black Box area:                0.000000
+Net Interconnect area:           12320.062347
+
+Total cell area:                   581.289811
+Total area:                      12901.352158
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area          Local cell area
+                                  ------------------  --------------------------- 
+Hierarchical cell                 Absolute   Percent  Combi-    Noncombi-  Black-
+                                  Total      Total    national  national   boxes   Design
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------
+debouncer_sync                     581.2898    100.0    8.2369     0.0000  0.0000  debouncer_sync
+debouncer_DUT                      521.2781     89.7    0.0000     0.0000  0.0000  debouncer
+debouncer_DUT/FSM_DUT               97.6661     16.8   45.8913    51.7748  0.0000  FSM
+debouncer_DUT/timer_DUT            423.6120     72.9   75.3088   256.5206  0.0000  timer
+debouncer_DUT/timer_DUT/add_23      91.7826     15.8   91.7826     0.0000  0.0000  timer_DW01_inc_0
+sync_DUT                            51.7748      8.9    0.0000    51.7748  0.0000  sync
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------
+Total                                                 221.2196   360.0702  0.0000
+
+1
