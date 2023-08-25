@@ -1,0 +1,19 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : debouncer_2_sync
+Version: K-2015.06
+Date   : Fri Aug 25 22:52:51 2023
+****************************************
+
+
+   max_area
+
+                             Required        Actual
+   Design                      Area           Area           Slack
+   -----------------------------------------------------------------
+   debouncer_2_sync             0.00       88887.00       -88887.00 (VIOLATED)
+
+
+1
